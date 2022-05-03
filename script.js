@@ -1,24 +1,3 @@
-/* function game() {
-    let boxes = document.querySelectorAll('.box')
-    let Boxes = Array.from(boxes)
-    function text(e) {
-        e.currentTarget.textContent = 'X'
-        e.currentTarget.style.backgroundColor = 'green'
-    }
-    function fill() {
-        for (let i = 0; i < Boxes.length; i++) {
-            Boxes[i].addEventListener('click', text)
-        }
-    }
-
-    return {Boxes, text, fill}
-}
-
-let play = game()
-
-play.Boxes
-play.fill() */
-
 let boxes = document.querySelectorAll('.box')
 let Boxes = Array.from(boxes)
 
@@ -30,10 +9,8 @@ function board() {
 let trialBox = (function() {
     let gameBoard = board()
 
-    /* let boxes = document.querySelectorAll('.box') */
 
     let bunch = function() {
-        /* let Boxes = Array.from(boxes) */
 
         for (let i = 0; i < Boxes.length; i++) {
             Boxes[i].textContent = gameBoard.layout[i]
@@ -50,77 +27,72 @@ trialBox.gameBoard
 trialBox.bunch()
 
 
-/* let player1 = function() {
-    let doIt = function(e) {
-        e.currentTarget.textContent = 'X'
-    }
+function individualBox() {
+    let box1 = document.querySelector('.one')
+    let box2 = document.querySelector('.two')
+    let box3 = document.querySelector('.three')
+    let box4 = document.querySelector('.four')
+    let box5 = document.querySelector('.five')
+    let box6 = document.querySelector('.six')
+    let box7 = document.querySelector('.seven')
+    let box8 = document.querySelector('.eight')
+    let box9 = document.querySelector('.nine')
 
-    let fillUp = function() {
-        for (let i = 0; i < Boxes.length; i++) {
-            Boxes[i].addEventListener('click', doIt)
-        }
-    }
-
-    return {fillUp}
+    return {box1, box2, box3, box4, box5, box6, box7, box8, box9}
 
 }
 
-let running = player1()
-
-
-
-let player2 = function() {
-    let fillUp = function() {
-        for (let i = 0; i < Boxes.length; i++) {
-            Boxes[i].addEventListener('click', function(e) {
-                e.currentTarget.textContent = 'O'
-                console.log(trialBox.gameBoard)
-            })
-        }
-    }
-    return {fillUp}
-}
-
-let running2 = player2() */
+let objectBox = individualBox()
 
 
 function autoMark() {
     let markO = 0
     let markX = 0
+
+
+    function eventListener(e) {
+        if (markO === 0 && markX === 0) {
+            markX += 1
+            
+            e.currentTarget.textContent = 'X'
+                
+        }
+        else if (markO === markX) {
+            markX += 1
+    
+            e.currentTarget.textContent = 'X'
+
+            if ((objectBox.box1.textContent == 'X' && objectBox.box2.textContent == 'X' && objectBox.box3.textContent == 'X') || (objectBox.box4.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box6.textContent == 'X') || (objectBox.box7.textContent == 'X' && objectBox.box8.textContent == 'X' && objectBox.box9.textContent == 'X') || (objectBox.box1.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box9.textContent == 'X') || (objectBox.box3.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box7.textContent == 'X') || (objectBox.box1.textContent == 'X' && objectBox.box4.textContent == 'X' && objectBox.box7.textContent == 'X') || (objectBox.box2.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box8.textContent == 'X') || (objectBox.box3.textContent == 'X' && objectBox.box6.textContent == 'X' && objectBox.box9.textContent == 'X')) {
+                console.log('X has won')
+                removeListener()
+            }
+            else if (markX === 5) {
+                console.log(`It's a Tie`)
+            }
+        }
+        else if (markO < markX) {
+            markO += 1
+                
+            e.currentTarget.textContent = 'O'
+
+            if ((objectBox.box1.textContent == 'O' && objectBox.box2.textContent == 'O' && objectBox.box3.textContent == 'O') || (objectBox.box4.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box6.textContent == 'O') || (objectBox.box7.textContent == 'O' && objectBox.box8.textContent == 'O' && objectBox.box9.textContent == 'O') || (objectBox.box1.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box9.textContent == 'O') || (objectBox.box3.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box7.textContent == 'O') || (objectBox.box1.textContent == 'O' && objectBox.box4.textContent == 'O' && objectBox.box7.textContent == 'O') || (objectBox.box2.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box8.textContent == 'O') || (objectBox.box3.textContent == 'O' && objectBox.box6.textContent == 'O' && objectBox.box9.textContent == 'O')) {
+                console.log('O has won')
+                removeListener()      
+            }
+                    
+                
+        }
+    }
     
     function addMark() {
         for (let i = 0; i < Boxes.length; i++) {
-            Boxes[i].addEventListener('click', function(e) {
-                console.log(e.currentTarget.textContent)
-                if (e.currentTarget.textContent !== 'X' && e.currentTarget.textContent !== 'O' ) {
-                    if (markO === 0 && markX === 0) {
-                        markX += 1
-                        
-                        e.currentTarget.textContent = 'X'
-                            
-                    }
-                    else if (markO === markX) {
-                        markX += 1
-            
-                        e.currentTarget.textContent = 'X'
-                    }
-                    else if (markO < markX) {
-                        markO += 1
-                        
-                        e.currentTarget.textContent = 'O'
-                            
-                        
-                    }
-                }
-                else {
-                    return false
-                }
-            })
+
+            Boxes[i].addEventListener('click', eventListener, {once: true})
         }
 
 
     }
-    return {addMark}
+    return {addMark, eventListener}
 }
 
 let run = autoMark()
@@ -128,19 +100,12 @@ let run = autoMark()
 
 
 
-/* running.fillUp()
-running2.fillUp()
- */
+run.addMark()
 
-let player = function() {
-    let fillUp = function() {
-        for (let i = 0; i < Boxes.length; i++) {
-            Boxes[i].addEventListener('click', run.addMark)
-        }
+function removeListener() {
+    for (let i = 0; i < Boxes.length; i++) {
+        Boxes[i].removeEventListener('click', run.eventListener)
     }
-    return {fillUp}
 }
 
-let gamePlay = player()
 
-run.addMark()
