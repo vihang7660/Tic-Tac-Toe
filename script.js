@@ -1,5 +1,10 @@
-let boxes = document.querySelectorAll('.box')
+function game() {
+    let boxes = document.querySelectorAll('.box')
 let Boxes = Array.from(boxes)
+let body = document.querySelector('body')
+let button = document.querySelector('button')
+let resultOutput = document.querySelector('.output')
+
 
 function board() {
     let layout = ['','','','','','','','','']
@@ -63,11 +68,14 @@ function autoMark() {
             e.currentTarget.textContent = 'X'
 
             if ((objectBox.box1.textContent == 'X' && objectBox.box2.textContent == 'X' && objectBox.box3.textContent == 'X') || (objectBox.box4.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box6.textContent == 'X') || (objectBox.box7.textContent == 'X' && objectBox.box8.textContent == 'X' && objectBox.box9.textContent == 'X') || (objectBox.box1.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box9.textContent == 'X') || (objectBox.box3.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box7.textContent == 'X') || (objectBox.box1.textContent == 'X' && objectBox.box4.textContent == 'X' && objectBox.box7.textContent == 'X') || (objectBox.box2.textContent == 'X' && objectBox.box5.textContent == 'X' && objectBox.box8.textContent == 'X') || (objectBox.box3.textContent == 'X' && objectBox.box6.textContent == 'X' && objectBox.box9.textContent == 'X')) {
-                console.log('X has won')
+                resultOutput.textContent = 'X has won'
+                resultOutput.style.display = 'block'
+                
                 removeListener()
             }
             else if (markX === 5) {
-                console.log(`It's a Tie`)
+                resultOutput.textContent = `It's a Tie`
+                resultOutput.style.display = 'block'
             }
         }
         else if (markO < markX) {
@@ -76,7 +84,8 @@ function autoMark() {
             e.currentTarget.textContent = 'O'
 
             if ((objectBox.box1.textContent == 'O' && objectBox.box2.textContent == 'O' && objectBox.box3.textContent == 'O') || (objectBox.box4.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box6.textContent == 'O') || (objectBox.box7.textContent == 'O' && objectBox.box8.textContent == 'O' && objectBox.box9.textContent == 'O') || (objectBox.box1.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box9.textContent == 'O') || (objectBox.box3.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box7.textContent == 'O') || (objectBox.box1.textContent == 'O' && objectBox.box4.textContent == 'O' && objectBox.box7.textContent == 'O') || (objectBox.box2.textContent == 'O' && objectBox.box5.textContent == 'O' && objectBox.box8.textContent == 'O') || (objectBox.box3.textContent == 'O' && objectBox.box6.textContent == 'O' && objectBox.box9.textContent == 'O')) {
-                console.log('O has won')
+                resultOutput.textContent = 'O has won'
+                resultOutput.style.display = 'block'
                 removeListener()      
             }
                     
@@ -108,4 +117,12 @@ function removeListener() {
     }
 }
 
+return {button, resultOutput}
+}
 
+let play = game()
+
+play.button.addEventListener('click', game)
+play.button.addEventListener('click', function() {
+    play.resultOutput.style.display = 'none'
+})
